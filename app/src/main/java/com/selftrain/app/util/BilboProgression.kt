@@ -17,7 +17,7 @@ import kotlin.math.roundToInt
  * - ~40% more weight than Bilbo set
  * - Intra-session guidance on EFFECTIVE reps (reps + RIR):
  *   a set <8 effective → suggest lower weight for next set
- *   a set >10 effective → suggest higher weight for next set
+ *   a set >=12 effective → suggest higher weight for next set
  */
 object BilboProgression {
 
@@ -47,20 +47,21 @@ object BilboProgression {
     /** Progression outcome for intra-session set advice (and tests) */
     enum class WorkProgression { INCREASE, MAINTAIN, DECREASE }
 
-    /**
+     /**
      * Intra-session advice after each work set, based on the last logged set.
      * Thresholds on effective reps (reps + RIR).
-     * Returns null when effective reps are in the maintain range (8..10).
+     * Returns null when effective reps are in the maintain range (8..11).
+     * Subir solo con >=12 efectivas (reps + RIR).
      *
      * ponytail: asymmetric factor is intentional — a miss (<8) needs a bigger reset
-     * than the bump for exceeding range (>10). Upgrade path: per-exercise adaptive
-     * factor if progression data shows 10% is too aggressive.
+     * than the bump for exceeding range (>=12). Upgrade path: per-exercise adaptive
+     * factor if progression data shows 5% is too aggressive.
      */
     fun workSetAdjustment(reps: Int, rir: Int = 0, weightKg: Float): Pair<WorkProgression, Float>? {
         val effective = effectiveReps(reps, rir)
         return when {
             effective < 8 -> WorkProgression.DECREASE to weightKg * 0.90f
-            effective > 10 -> WorkProgression.INCREASE to weightKg * 1.05f
+            effective >= 12 -> WorkProgression.INCREASE to weightKg * 1.05f
             else -> null
         }
     }

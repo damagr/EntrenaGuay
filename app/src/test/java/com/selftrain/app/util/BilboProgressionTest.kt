@@ -65,28 +65,33 @@ class BilboProgressionTest {
         assertEquals(18f, w, 0.001f)
     }
 
-    @Test fun workSetAdjustment_above10Increases5percent() {
+    @Test fun workSetAdjustment_above12Increases5percent() {
         val (prog, w) = BilboProgression.workSetAdjustment(12, 0, 20f)!!
         assertEquals(WorkProgression.INCREASE, prog)
         assertEquals(21f, w, 0.001f)
-        val (p2, w2) = BilboProgression.workSetAdjustment(11, 0, 20f)!!
+        val (p2, w2) = BilboProgression.workSetAdjustment(13, 0, 20f)!!
         assertEquals(WorkProgression.INCREASE, p2)
         assertEquals(21f, w2, 0.001f)
+        // 11 efectivas ya no sube
+        assertNull(BilboProgression.workSetAdjustment(11, 0, 20f))
     }
 
     @Test fun workSetAdjustment_maintainRangeReturnsNull() {
         assertNull(BilboProgression.workSetAdjustment(8, 0, 20f))
         assertNull(BilboProgression.workSetAdjustment(9, 0, 20f))
         assertNull(BilboProgression.workSetAdjustment(10, 0, 20f))
+        assertNull(BilboProgression.workSetAdjustment(11, 0, 20f))
     }
 
     @Test fun workSetAdjustment_rirCountsTowardEffectiveReps() {
         // 7 reps + RIR 1 = 8 efectivas → mantener, no bajar
         assertNull(BilboProgression.workSetAdjustment(7, 1, 20f))
-        // 10 reps + RIR 2 = 12 efectivas → subir, no mantener
+        // 10 reps + RIR 2 = 12 efectivas → subir (>=12)
         val (prog, w) = BilboProgression.workSetAdjustment(10, 2, 20f)!!
         assertEquals(WorkProgression.INCREASE, prog)
         assertEquals(21f, w, 0.001f)
+        // 10 reps + RIR 1 = 11 efectivas → mantener, no subir
+        assertNull(BilboProgression.workSetAdjustment(10, 1, 20f))
         // 6 reps + RIR 1 = 7 efectivas → bajar
         val (p2, w2) = BilboProgression.workSetAdjustment(6, 1, 20f)!!
         assertEquals(WorkProgression.DECREASE, p2)

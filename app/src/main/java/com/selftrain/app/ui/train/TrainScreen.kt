@@ -610,7 +610,7 @@ private fun LazyListScope.exerciseSetItems(
                     )
                     Spacer(Modifier.width(8.dp))
                     Text(
-                        if (isIncrease) "Sube a ~${String.format(java.util.Locale.US, "%.1f", suggestedWeight)} kg (hiciste $lastEffective reps efectivas, >10)"
+                        if (isIncrease) "Sube a ~${String.format(java.util.Locale.US, "%.1f", suggestedWeight)} kg (hiciste $lastEffective reps efectivas, >=12)"
                         else "Baja a ~${String.format(java.util.Locale.US, "%.1f", suggestedWeight)} kg (hiciste $lastEffective reps efectivas, <8)",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface

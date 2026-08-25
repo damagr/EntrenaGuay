@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.activity.compose.BackHandler
@@ -142,6 +143,18 @@ fun TrainScreen(
                                             )
                                         }
                                     }
+                                }
+                                // Inline GIF demonstration
+                                currentEx?.exercise?.gifUrl?.let { gifUrl ->
+                                    AsyncImage(
+                                        model = gifUrl,
+                                        contentDescription = "Demostración: ${currentEx.exercise.name}",
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(120.dp)
+                                            .padding(top = 8.dp),
+                                        contentScale = ContentScale.Fit
+                                    )
                                 }
                                 Text(
                                     "${currentIndex + 1} de $totalExercises",
@@ -869,12 +882,12 @@ fun WorkSetInput(
 @Composable
 fun RestTimer(category: String? = null) {
     val context = LocalContext.current
-    var totalSeconds by remember { mutableIntStateOf(defaultRestSeconds(category)) }
-    var remaining by remember { mutableIntStateOf(defaultRestSeconds(category)) }
-    var isRunning by remember { mutableStateOf(false) }
-    var showTimer by remember { mutableStateOf(false) }
-    var pausedRemaining by remember { mutableIntStateOf(0) }
-    var showFinishedMessage by remember { mutableStateOf(false) }
+    var totalSeconds by rememberSaveable { mutableIntStateOf(defaultRestSeconds(category)) }
+    var remaining by rememberSaveable { mutableIntStateOf(defaultRestSeconds(category)) }
+    var isRunning by rememberSaveable { mutableStateOf(false) }
+    var showTimer by rememberSaveable { mutableStateOf(false) }
+    var pausedRemaining by rememberSaveable { mutableIntStateOf(0) }
+    var showFinishedMessage by rememberSaveable { mutableStateOf(false) }
 
     // Ponytail: reset del default al cambiar de ejercicio, solo si el timer no corre
     // (para no cortar un descanso en marcha). El ±30s manual sigue disponible.

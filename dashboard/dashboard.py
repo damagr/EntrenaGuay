@@ -52,6 +52,8 @@ def process(data):
                 sessions[date]["work_weight"] = max(sessions[date]["work_weight"], s["weightKg"])
 
         sorted_sessions = sorted(sessions.items())
+        if not sorted_sessions:
+            continue
         per_exercise[eid] = {
             "name": ex["name"],
             "muscle": LABELS.get(ex.get("muscleGroup", ""), ex.get("muscleGroup", "")),

@@ -46,6 +46,9 @@ class ExerciseRepository @Inject constructor(
         seedData.forEach { seed ->
             byName[seed.name]?.takeIf { it.isBilboEligible != seed.isBilboEligible }
                 ?.let { dao.updateBilboEligible(it.id, seed.isBilboEligible) }
+            // ponytail: backfill gifUrl para ejercicios existentes sin URL
+            byName[seed.name]?.takeIf { it.gifUrl == null || it.gifUrl.isNullOrBlank() }
+                ?.let { dao.updateNameAndGif(it.id, it.name, findMatchingGifUrl(seed.name)) }
         }
     }
 

@@ -135,7 +135,8 @@ fun TrainScreen(
                                         currentEx?.exercise?.name ?: "",
                                         style = MaterialTheme.typography.titleMedium,
                                         maxLines = 2,
-                                        overflow = TextOverflow.Ellipsis
+                                        overflow = TextOverflow.Ellipsis,
+                                        modifier = Modifier.weight(1f)
                                     )
                                     val hasGif = currentEx?.exercise?.gifUrl != null ||
                                         getExerciseGifUrl(currentEx?.exercise?.name ?: "") != null
@@ -147,7 +148,7 @@ fun TrainScreen(
                                             Icon(
                                                 Icons.Default.Info,
                                                 contentDescription = "Ver demostración",
-                                                modifier = Modifier.size(18.dp)
+                                                modifier = Modifier.size(20.dp)
                                             )
                                         }
                                     }

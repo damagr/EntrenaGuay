@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Restore
 import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -112,8 +113,8 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    var showImportConfirm by remember { mutableStateOf<Uri?>(null) }
-    var showRecoveryDialog by remember { mutableStateOf(false) }
+    var showImportConfirm by rememberSaveable { mutableStateOf<Uri?>(null) }
+    var showRecoveryDialog by rememberSaveable { mutableStateOf(false) }
     val deletedExercises by viewModel.deletedExercises.collectAsState()
     val backupFolderDisplay by viewModel.backupFolderDisplay.collectAsState()
 

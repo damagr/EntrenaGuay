@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -389,7 +390,7 @@ fun HistoryScreen(
                         }
 
                         items(sets, key = { "set-${it.set.id}" }) { s ->
-                            var showEditDialog by remember { mutableStateOf(false) }
+                            var showEditDialog by rememberSaveable { mutableStateOf(false) }
 
                             ElevatedCard(
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 2.dp)
@@ -433,7 +434,7 @@ fun HistoryScreen(
 
                         // Add set button
                         item(key = "add-$exerciseName") {
-                            var showAddDialog by remember { mutableStateOf(false) }
+                            var showAddDialog by rememberSaveable { mutableStateOf(false) }
                             TextButton(
                                 onClick = { showAddDialog = true },
                                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
@@ -458,7 +459,7 @@ fun HistoryScreen(
                     val exercisesInWorkout = viewModel.getExercisesInWorkout()
                     val availableExercises = allExercises.filter { it.id !in exercisesInWorkout }
                     item(key = "add-exercise") {
-                        var showAddExerciseDialog by remember { mutableStateOf(false) }
+                        var showAddExerciseDialog by rememberSaveable { mutableStateOf(false) }
                         TextButton(
                             onClick = { showAddExerciseDialog = true },
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)

@@ -74,10 +74,10 @@ fun TrainScreen(
         return
     }
 
-    var showJumpDialog by remember { mutableStateOf(false) }
-    var showGifDialog by remember { mutableStateOf(false) }
-    var showBackConfirm by remember { mutableStateOf(false) }
-    var showUndoConfirm by remember { mutableStateOf(false) }
+    var showJumpDialog by rememberSaveable { mutableStateOf(false) }
+    var showGifDialog by rememberSaveable { mutableStateOf(false) }
+    var showBackConfirm by rememberSaveable { mutableStateOf(false) }
+    var showUndoConfirm by rememberSaveable { mutableStateOf(false) }
     val listState = rememberLazyListState()
     val scrollScope = rememberCoroutineScope()
 

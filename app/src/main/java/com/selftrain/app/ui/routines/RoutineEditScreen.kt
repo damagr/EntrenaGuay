@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -41,9 +42,9 @@ fun RoutineEditScreen(
     val routine by viewModel.routine.collectAsState()
     val exercises by viewModel.routineExercises.collectAsState()
     val allExercises by viewModel.allExercises.collectAsState()
-    var showAddDialog by remember { mutableStateOf(false) }
-    var showDeleteConfirm by remember { mutableStateOf(false) }
-    var replaceIndex by remember { mutableStateOf<Int?>(null) }
+    var showAddDialog by rememberSaveable { mutableStateOf(false) }
+    var showDeleteConfirm by rememberSaveable { mutableStateOf(false) }
+    var replaceIndex by rememberSaveable { mutableStateOf<Int?>(null) }
 
     LaunchedEffect(routineId) { viewModel.loadRoutine(routineId) }
 

@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -34,10 +35,10 @@ fun RoutinesScreen(
     viewModel: RoutinesViewModel = hiltViewModel()
 ) {
     val routines by viewModel.routines.collectAsState()
-    var showCreateDialog by remember { mutableStateOf(false) }
-    var showPredefinedDialog by remember { mutableStateOf(false) }
-    var shareRoutineId by remember { mutableStateOf<Long?>(null) }
-    var showScanDialog by remember { mutableStateOf(false) }
+    var showCreateDialog by rememberSaveable { mutableStateOf(false) }
+    var showPredefinedDialog by rememberSaveable { mutableStateOf(false) }
+    var shareRoutineId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var showScanDialog by rememberSaveable { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 

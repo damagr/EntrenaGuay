@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -44,16 +45,16 @@ fun ExerciseLibraryScreen(
     val usedIds by viewModel.usedExerciseIds.collectAsState()
 
     val isUsed = remember(usedIds) { { id: Long -> id in usedIds } }
-    var showCreateDialog by remember { mutableStateOf(false) }
-    var showDeleteConfirm by remember { mutableStateOf<Exercise?>(null) }
-    var showGifExercise by remember { mutableStateOf<Exercise?>(null) }
-    var editExercise by remember { mutableStateOf<Exercise?>(null) }
-    var pendingEdit by remember { mutableStateOf<Pair<Exercise, String>?>(null) }
-    var deleteMode by remember { mutableStateOf(false) }
-    var editMode by remember { mutableStateOf(false) }
+    var showCreateDialog by rememberSaveable { mutableStateOf(false) }
+    var showDeleteConfirm by rememberSaveable { mutableStateOf<Exercise?>(null) }
+    var showGifExercise by rememberSaveable { mutableStateOf<Exercise?>(null) }
+    var editExercise by rememberSaveable { mutableStateOf<Exercise?>(null) }
+    var pendingEdit by rememberSaveable { mutableStateOf<Pair<Exercise, String>?>(null) }
+    var deleteMode by rememberSaveable { mutableStateOf(false) }
+    var editMode by rememberSaveable { mutableStateOf(false) }
 
     // GIF picker flow: (matches, onPick callback)
-    var gifPickerState by remember { mutableStateOf<Pair<List<GifMatch>, (String?) -> Unit>?>(null) }
+    var gifPickerState by rememberSaveable { mutableStateOf<Pair<List<GifMatch>, (String?) -> Unit>?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
 

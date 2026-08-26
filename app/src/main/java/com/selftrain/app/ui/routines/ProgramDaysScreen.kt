@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -32,9 +33,9 @@ fun ProgramDaysScreen(
     val allRoutines by viewModel.routines.collectAsState()
     val parent = allRoutines.find { it.id == routineId }
     val children = allRoutines.filter { it.parentId == routineId }.sortedBy { it.order }
-    var showDeleteConfirm by remember { mutableStateOf(false) }
-    var showAddDayDialog by remember { mutableStateOf(false) }
-    var isEditing by remember { mutableStateOf(false) }
+    var showDeleteConfirm by rememberSaveable { mutableStateOf(false) }
+    var showAddDayDialog by rememberSaveable { mutableStateOf(false) }
+    var isEditing by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         floatingActionButton = {

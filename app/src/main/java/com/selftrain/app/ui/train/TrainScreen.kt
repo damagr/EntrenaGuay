@@ -144,18 +144,6 @@ fun TrainScreen(
                                         }
                                     }
                                 }
-                                // Inline GIF demonstration
-                                currentEx?.exercise?.gifUrl?.let { gifUrl ->
-                                    AsyncImage(
-                                        model = gifUrl,
-                                        contentDescription = "Demostración: ${currentEx.exercise.name}",
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(120.dp)
-                                            .padding(top = 8.dp),
-                                        contentScale = ContentScale.Fit
-                                    )
-                                }
                                 Text(
                                     "${currentIndex + 1} de $totalExercises",
                                     style = MaterialTheme.typography.bodySmall,

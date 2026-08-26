@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.activity.compose.BackHandler
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.selftrain.app.data.model.WorkoutSet
@@ -125,13 +126,20 @@ fun TrainScreen(
 
                             // Exercise name + info button + position
                             Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                Row(
+                                    Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
                                     Text(
                                         currentEx?.exercise?.name ?: "",
                                         style = MaterialTheme.typography.titleMedium,
-                                        maxLines = 2
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis
                                     )
-                                    if (currentEx?.exercise?.gifUrl != null) {
+                                    val hasGif = currentEx?.exercise?.gifUrl != null ||
+                                        getExerciseGifUrl(currentEx?.exercise?.name ?: "") != null
+                                    if (hasGif) {
                                         IconButton(
                                             onClick = { showGifDialog = true },
                                             modifier = Modifier.size(32.dp)

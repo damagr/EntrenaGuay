@@ -79,3 +79,16 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
           files: app/build/outputs/apk/release/*.apk
           body_path: release_notes.md
+
+      - name: Prune old release assets
+        if: steps.version.outputs.skip == 'false'
+        run: |
+          latest=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
+          for tag in $(gh release list --limit 100 --json tagName -q '.[].tagName'); do
+            [ "$tag" = "$latest" ] && continue
+            gh release view "$tag" --json assets -q '.assets[].name' | while read -r a; do
+              gh release delete-asset "$tag" "$a" --yes
+            done
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
